@@ -1,0 +1,18 @@
+name: Deploy and Clear CDN Cache
+
+on:
+  push:
+    branches:
+      - main  # 监听 main 分支提交
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v4
+
+      - name: Trigger CDN Cache Purge
+        run: |
+          curl -X POST "https://purge.jsdelivr.net/gh/JohnChincken/api@main/products.json"
